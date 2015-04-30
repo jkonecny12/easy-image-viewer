@@ -18,6 +18,7 @@ FileLoader::~FileLoader()
 void FileLoader::loadImageList(QString path)
 {
     path.remove(QStringLiteral("file://"));
+    path.remove(QStringLiteral("qrc:"));
 
     qDebug() << "Load folder: " + path;
 
