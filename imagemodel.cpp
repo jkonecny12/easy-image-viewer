@@ -3,12 +3,14 @@
 #include <QtDebug>
 #include <QFileInfo>
 
-ImageModel::ImageModel()
+ImageModel::ImageModel() :
+    QAbstractListModel()
 {
 
 }
 
-ImageModel::ImageModel(const QStringList &paths)
+ImageModel::ImageModel(const QStringList &paths) :
+    QAbstractListModel()
 {
     Q_FOREACH(QString path, paths)
     {

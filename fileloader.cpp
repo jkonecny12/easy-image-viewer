@@ -4,7 +4,8 @@
 #include <QDirIterator>
 #include <QtDebug>
 
-FileLoader::FileLoader(QObject *parent) : QObject(parent)
+FileLoader::FileLoader(QObject *parent) :
+    QObject(parent)
 {
 
 }
