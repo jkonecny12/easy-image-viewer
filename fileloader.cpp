@@ -39,14 +39,33 @@ void FileLoader::loadImageList(QString path)
         iter.next();
         qDebug() << "Loaded: " << iter.filePath();
         this->m_itemsList.append(iter.filePath());
+        this->m_categories.insert(iter.fileName().left(3));
     }
 
     this->m_itemsList.sort();
 
-    emit imageModelChanged();
+    emit this->categoryModelChanged();
 }
 
-ImageModel *FileLoader::imageModel() const
+CategoryModel *FileLoader::categoryModel() const
 {
-    return new ImageModel(this->m_itemsList);
+    QStringList list = this->m_categories.toList();
+    list.sort();
+
+    return new CategoryModel(list);
+}
+
+ImageModel *FileLoader::imageModel(QString categoryPrefix) const
+{
+    QStringList categoryImages;
+
+    Q_FOREACH(QString path, this->m_itemsList)
+    {
+        QString fileName = QFileInfo(path).fileName();
+
+        if(fileName.startsWith(categoryPrefix))
+            categoryImages << path;
+    }
+
+    return new ImageModel(categoryImages);
 }

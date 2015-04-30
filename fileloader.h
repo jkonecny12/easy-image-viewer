@@ -3,29 +3,33 @@
 
 #include <QObject>
 #include <QStringList>
+#include <QSet>
 
 #include "imagemodel.h"
+#include "categorymodel.h"
 
 class FileLoader : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(ImageModel* imageModel READ imageModel NOTIFY imageModelChanged)
 
+    Q_PROPERTY(CategoryModel* categoryModel READ categoryModel NOTIFY categoryModelChanged)
 public:
     explicit FileLoader(QObject *parent = 0);
     ~FileLoader();
 
     Q_INVOKABLE void loadImageList(QString path);
 
-    Q_INVOKABLE ImageModel *imageModel() const;
+    CategoryModel *categoryModel() const;
+    Q_INVOKABLE ImageModel *imageModel(QString categoryPrefix) const;
 
 signals:
-    void imageModelChanged();
+    void categoryModelChanged();
 
 public slots:
 
 private:
     QStringList m_itemsList;
+    QSet<QString> m_categories;
 };
 
 #endif // FILELOADER_H

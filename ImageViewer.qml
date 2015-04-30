@@ -12,12 +12,15 @@ Rectangle {
         fileLoader.loadImageList(rootFolder)
     }
 
-    ListView {
-        id: listView
+    ScrollView {
+        anchors.fill: parent
+        ListView {
+            id: listView
+            anchors.fill: parent
 
-        model: fileLoader.imageModel
-        delegate: categoryDelegate
-
+            model: fileLoader.imageModel
+            delegate: categoryDelegate
+        }
     }
 
     FileLoader {
@@ -28,16 +31,45 @@ Rectangle {
         id: categoryDelegate
 
         Item {
-            width: 80
-            height: 80
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 100
 
-            Rectangle {
+            ListView {
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                width: 450 // maximum 5 items * 90 width
+                orientation: Qt.LeftToRight
+
+                delegate: imageDelegate
+            }
+
+            ListView {
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                width: 450 // maximum 5 items * 90 width
+                orientation: Qt.LeftToRight
+
+                delegate: imageDelegate
+            }
+        }
+    }
+
+    Component {
+        id: imageDelegate
+
+        Item {
+            width: 90
+            height: 90
+
+            Image {
                 anchors.fill: parent
-                color: "cyan"
+                fillMode: Image.PreserveAspectFit
+                asynchronous: true
 
-                Text {
-                    text: "name: " + name + " path: " + path
-                }
+                source: "file://" + path
             }
         }
     }
