@@ -6,20 +6,18 @@ import org.ps.EasyImage 1.0
 Rectangle {
     id: root
 
+    property url rootFolder: ""
+
+    onRootFolderChanged: {
+        fileLoader.loadImageList(rootFolder)
+    }
+
     ListView {
         id: listView
 
         model: fileLoader.imageModel
         delegate: categoryDelegate
 
-    }
-
-    ListModel {
-        id: testModel
-
-        ListElement {
-            path: "../../test.jpg"
-        }
     }
 
     FileLoader {

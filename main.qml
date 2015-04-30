@@ -4,6 +4,7 @@ import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
+    id: root
     title: qsTr("Hello World")
     width: 640
     height: 480
@@ -14,12 +15,23 @@ ApplicationWindow {
             title: qsTr("&File")
             MenuItem {
                 text: qsTr("&Open")
-                onTriggered: messageDialog.show(qsTr("Open action triggered"));
+                onTriggered: fileDialog.visible = true
             }
             MenuItem {
                 text: qsTr("E&xit")
                 onTriggered: Qt.quit();
             }
+        }
+    }
+
+    FileDialog {
+        id: fileDialog
+        title: qsTr("Please choose root folder with images")
+        selectFolder: true
+        selectMultiple: false
+
+        onAccepted: {
+            mainForm.rootFolder = fileDialog.folder
         }
     }
 

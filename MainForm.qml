@@ -4,6 +4,8 @@ import QtQuick.Controls 1.2
 Rectangle {
     id: root
 
+    property url rootFolder: ""
+
     TabView {
         id: tabview
         anchors.fill: parent
@@ -12,6 +14,7 @@ Rectangle {
             title: "Valečník"
 
             ImageViewer {
+                rootFolder: root.rootFolder + "/3\ Valecnici"
             }
         }
 

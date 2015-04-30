@@ -3,7 +3,8 @@
 
 #include <QObject>
 #include <QAbstractListModel>
-#include <QStringList>
+#include <QList>
+#include <QPair>
 
 class ImageModel : public QAbstractListModel
 {
@@ -15,7 +16,9 @@ public:
     };
 
     explicit ImageModel();
-    explicit ImageModel(const QString path, const QString name);
+    explicit ImageModel(const QStringList &paths);
+
+    void addImage(const QString path);
 
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
 
@@ -24,8 +27,7 @@ public:
     QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
 
 private:
-    QStringList m_listPaths;
-    QStringList m_listNames;
+    QList<QPair<QString, QString> > m_imageList;
 };
 
 #endif // IMAGEMODEL_H
