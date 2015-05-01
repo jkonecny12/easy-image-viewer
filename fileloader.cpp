@@ -24,7 +24,7 @@ void FileLoader::loadImageList(QString path)
 
     QDir dir = QDir(path);
     dir.setFilter(QDir::Filter::Files);
-    QStringList filters({"*.png"});
+    QStringList filters({"*.png", "*.jpg"});
     dir.setNameFilters(filters);
 
     if(!dir.exists())
@@ -50,8 +50,6 @@ CategoryModel *FileLoader::categoryModel() const
 {
     QStringList list = this->m_categories.toList();
     list.sort();
-
-    qDebug() << "category model count" << list.count();
 
     return new CategoryModel(list);
 }

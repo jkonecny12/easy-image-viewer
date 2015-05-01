@@ -12,7 +12,7 @@ Rectangle {
         anchors.fill: parent
 
         Tab {
-            title: "Valečník"
+            title: qsTr("Valečník")
 
             ImageViewer {
                 rootFolder: root.rootFolder + "/3\ Valecnici"
@@ -20,17 +20,35 @@ Rectangle {
         }
 
         Tab {
-            title: "Kouzelník"
+            title: qsTr("Kouzelník")
 
-            Rectangle {
-                color: "blue"
+            ImageViewer {
+                rootFolder: root.rootFolder + "/4\ Kouzelnici"
             }
         }
 
         Tab {
-            title: "Průzkumník"
+            title: qsTr("Průzkumník")
 
+            ImageViewer {
+                rootFolder: root.rootFolder + "/5\ Pruzkumnici"
+            }
+        }
 
+        Tab {
+            title: qsTr("Cennosti")
+
+            ImageViewer {
+                rootFolder: root.rootFolder + "/2\ Cennosti"
+            }
+        }
+
+        Tab {
+            title: qsTr("Monstra")
+
+            ImageViewer {
+                rootFolder: root.rootFolder + "/1\ Monstra"
+            }
         }
     }
 }
