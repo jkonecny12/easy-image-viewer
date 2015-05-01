@@ -39,7 +39,7 @@ void FileLoader::loadImageList(QString path)
     {
         iter.next();
 
-        if(this->m_hide && this->m_selectedItems.contains(iter.path()))
+        if(this->m_hide && this->m_selectedItems.contains(iter.filePath()))
             continue;
 
         this->m_itemsList.append(iter.filePath());
@@ -47,6 +47,7 @@ void FileLoader::loadImageList(QString path)
 
     this->m_itemsList.sort();
 
+    qDebug() << "Skiped items" << this->m_selectedItems.count();
     qDebug() << "Load items" << this->m_itemsList.count();
 
     emit this->imageModelChanged();
@@ -72,9 +73,5 @@ void FileLoader::unselectImage(QString path)
 void FileLoader::hideItems(bool hide)
 {
     this->m_hide = hide;
-
-    if(this->m_hide)
-    {
-        this->loadImageList(this->m_lastPath);
-    }
+    this->loadImageList(this->m_lastPath);
 }
