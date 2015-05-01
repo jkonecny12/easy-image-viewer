@@ -5,8 +5,7 @@ QT += qml quick widgets
 SOURCES += main.cpp \
     fileloader.cpp \
     imagemodel.cpp \
-    settings.cpp \
-    categorymodel.cpp
+    settings.cpp
 
 RESOURCES += qml.qrc
 
@@ -21,5 +20,4 @@ include(deployment.pri)
 HEADERS += \
     fileloader.h \
     imagemodel.h \
-    settings.h \
-    categorymodel.h
+    settings.h
