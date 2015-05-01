@@ -47,11 +47,11 @@ Rectangle {
             id: listView
             anchors.fill: parent
 
-            cellWidth: 520
+            cellWidth: monsters ? 255 : 95
             cellHeight: monsters ? 255 : 95
 
-            model: fileLoader.categoryModel
-            delegate: categoryDelegate
+            model: fileLoader.imageModel
+            delegate: imageDelegate
         }
     }
 
@@ -107,24 +107,6 @@ Rectangle {
 
     FileLoader {
         id: fileLoader
-    }
-
-    Component {
-        id: categoryDelegate
-
-        Item {
-            id: categoryRoot
-            height: root.monsters ? 255 : 120
-            width: root.monsters ? 510 : 450 // 5 items * 90 width + spaces
-
-            ListView {
-                anchors.fill: parent
-                orientation: Qt.LeftToRight
-
-                delegate: imageDelegate
-                model: fileLoader.imageModel(categoryPrefix)
-            }
-        }
     }
 
     Component {
