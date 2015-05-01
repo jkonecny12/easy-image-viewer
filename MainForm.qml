@@ -48,6 +48,7 @@ Rectangle {
 
             ImageViewer {
                 rootFolder: root.rootFolder + "/1\ Monstra"
+                monsters: true
             }
         }
     }

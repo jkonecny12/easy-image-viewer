@@ -8,8 +8,8 @@ import org.ps.EasyImage 1.0
 ApplicationWindow {
     id: root
     title: qsTr("Hello World")
-    width: 640
-    height: 480
+    width: 1060
+    height: 640
     visible: true
 
     menuBar: MenuBar {

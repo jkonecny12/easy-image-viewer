@@ -8,6 +8,8 @@ Rectangle {
 
     property url rootFolder: ""
 
+    property bool monsters: false
+
     onRootFolderChanged: {
         fileLoader.loadImageList(rootFolder)
     }
@@ -18,7 +20,8 @@ Rectangle {
             id: listView
             anchors.fill: parent
 
-            cellWidth: 480
+            cellWidth: monsters ? 520 : 480
+            cellHeight: monsters ? 255 : 95
 
             model: fileLoader.categoryModel
             delegate: categoryDelegate
@@ -34,8 +37,8 @@ Rectangle {
 
         Item {
             id: categoryRoot
-            height: 120
-            width: 500 // 5 items * 90 width + spaces
+            height: root.monsters ? 255 : 120
+            width: root.monsters ? 510 : 450 // 5 items * 90 width + spaces
 
             ListView {
                 anchors.fill: parent
@@ -51,13 +54,13 @@ Rectangle {
         id: imageDelegate
 
         Item {
-            width: 100
-            height: 100
+            width: root.monsters ? 255 : 95
+            height: root.monsters ? 255 : 95
 
             Image {
+                width: parent.width - 5
+                height: parent.height - 5
                 anchors.centerIn: parent
-                width: 90
-                height: 90
 
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
