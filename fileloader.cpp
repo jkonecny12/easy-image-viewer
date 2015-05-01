@@ -5,20 +5,21 @@
 #include <QtDebug>
 
 FileLoader::FileLoader(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    m_hide(true)
 {
-
 }
 
 FileLoader::~FileLoader()
 {
-
 }
 
 void FileLoader::loadImageList(QString path)
 {
     path.remove(QStringLiteral("file://"));
     path.remove(QStringLiteral("qrc:"));
+
+    this->m_lastPath = path;
 
     qDebug() << "Load folder: " + path;
 
@@ -37,6 +38,10 @@ void FileLoader::loadImageList(QString path)
     while(iter.hasNext())
     {
         iter.next();
+
+        if(this->m_hide && this->m_selectedItems.contains(iter.path()))
+            continue;
+
         this->m_itemsList.append(iter.filePath());
         this->m_categories.insert(iter.fileName().left(3));
     }
@@ -67,4 +72,32 @@ ImageModel *FileLoader::imageModel(QString categoryPrefix) const
     }
 
     return new ImageModel(categoryImages);
+}
+
+void FileLoader::selectImage(QString path)
+{
+    this->m_selectedItems.insert(path);
+}
+
+void FileLoader::unselectImage(QString path)
+{
+    this->m_selectedItems.remove(path);
+}
+
+/** SLOTS **/
+
+bool FileLoader::hide() const
+{
+    return this->m_hide;
+}
+
+void FileLoader::setHide(bool hide)
+{
+    if(this->m_hide != hide)
+    {
+        qDebug() << "change hide";
+        this->m_hide = hide;
+        emit this->hideChanged();
+        this->loadImageList(this->m_lastPath);
+    }
 }

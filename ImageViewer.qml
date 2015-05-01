@@ -9,10 +9,38 @@ Rectangle {
     property url rootFolder: ""
 
     property bool monsters: false
+    property bool hide: true
+
+    state: "HIDE"
 
     onRootFolderChanged: {
         fileLoader.loadImageList(rootFolder)
     }
+
+    states: [
+        State {
+            name: "HIDE"
+            PropertyChanges {
+                target: root
+                hide: true
+            }
+            PropertyChanges {
+                target: fileLoader
+                hide: true
+            }
+        },
+        State {
+            name: "SHOW"
+            PropertyChanges {
+                target: root
+                hide: false
+            }
+            PropertyChanges {
+                target: fileLoader
+                hide: false
+            }
+        }
+    ]
 
     ScrollView {
         anchors
@@ -58,6 +86,10 @@ Rectangle {
 
             width: 150
             text: qsTr("Zobrazit vše")
+
+            onClicked: {
+                root.state = "SHOW"
+            }
         }
 
         Button {
@@ -72,6 +104,10 @@ Rectangle {
 
             width: 150
             text: qsTr("Schovat označené")
+
+            onClicked: {
+                root.state = "HIDE"
+            }
         }
     }
 
@@ -111,6 +147,13 @@ Rectangle {
                 anchors.fill: parent
 
                 state: "NORMAL"
+
+                onStateChanged: {
+                    if(state == "NORMAL")
+                        fileLoader.unselectImage(path)
+                    else
+                        fileLoader.selectImage(path)
+                }
 
                 states: [
                     State {

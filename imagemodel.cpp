@@ -3,6 +3,26 @@
 #include <QtDebug>
 #include <QFileInfo>
 
+/** Inner class to store information about Image **/
+struct ImageData {
+    QString path;
+    QString name;
+    bool isSelected;
+
+    ImageData(QString path, QString name, bool isSelected) :
+        path(path),
+        name(name),
+        isSelected(isSelected)
+    {
+    }
+
+    virtual ~ImageData()
+    {
+    }
+};
+
+/** Main Image model **/
+
 ImageModel::ImageModel() :
     QAbstractListModel()
 {
@@ -14,13 +34,8 @@ ImageModel::ImageModel(const QStringList &paths) :
 {
     Q_FOREACH(QString path, paths)
     {
-        this->m_imageList.append(qMakePair(QFileInfo(path).fileName(), path));
+        this->m_imageList.append(QSharedPointer<ImageData>(new ImageData(path, QFileInfo(path).fileName(), false)));
     }
-}
-
-void ImageModel::addImage(const QString path)
-{
-    this->m_imageList.append(qMakePair(path, QFileInfo(path).fileName()));
 }
 
 int ImageModel::rowCount(const QModelIndex &parent) const
@@ -38,9 +53,11 @@ QVariant ImageModel::data(const QModelIndex &index, int role) const
     {
     case Qt::DisplayRole:
     case ImageName:
-        return QVariant(this->m_imageList.at(index.row()).first);
+        return QVariant(this->m_imageList.at(index.row())->name);
     case ImagePath:
-        return QVariant(this->m_imageList.at(index.row()).second);
+        return QVariant(this->m_imageList.at(index.row())->path);
+    case ImageSelected:
+        return QVariant(this->m_imageList.at(index.row())->isSelected);
     default:
         return QVariant();
     }
@@ -52,6 +69,7 @@ QHash<int, QByteArray> ImageModel::roleNames() const
 
     roles[ImageName] = "name";
     roles[ImagePath] = "path";
+    roles[ImageSelected] = "selected";
 
     return roles;
 }

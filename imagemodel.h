@@ -4,21 +4,21 @@
 #include <QObject>
 #include <QAbstractListModel>
 #include <QList>
-#include <QPair>
+#include <QSharedPointer>
 
+struct ImageData;
 class ImageModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
     enum ImageRoles {
         ImageName = Qt::UserRole +1,
-        ImagePath
+        ImagePath,
+        ImageSelected
     };
 
     explicit ImageModel();
     explicit ImageModel(const QStringList &paths);
-
-    void addImage(const QString path);
 
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
 
@@ -27,7 +27,7 @@ public:
     QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
 
 private:
-    QList<QPair<QString, QString> > m_imageList;
+    QList<QSharedPointer<ImageData> > m_imageList;
 };
 
 #endif // IMAGEMODEL_H
