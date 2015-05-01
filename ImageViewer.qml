@@ -15,16 +15,63 @@ Rectangle {
     }
 
     ScrollView {
-        anchors.fill: parent
+        anchors
+        {
+            top: parent.top
+            bottom: buttons.top
+            left: parent.left
+            right: parent.right
+        }
+
         GridView {
             id: listView
             anchors.fill: parent
 
-            cellWidth: monsters ? 520 : 480
+            cellWidth: 520
             cellHeight: monsters ? 255 : 95
 
             model: fileLoader.categoryModel
             delegate: categoryDelegate
+        }
+    }
+
+    Rectangle {
+        id: buttons
+
+        anchors
+        {
+            right: parent.right
+            left: parent.left
+            bottom: parent.bottom
+        }
+
+        height: 30
+
+        Button {
+            id: showButton
+            anchors
+            {
+                right: parent.right
+                top: parent.top
+                bottom: parent.bottom
+            }
+
+            width: 150
+            text: qsTr("Zobrazit vše")
+        }
+
+        Button {
+            id: hideButton
+
+            anchors
+            {
+                right: showButton.left
+                top: parent.top
+                bottom: parent.bottom
+            }
+
+            width: 150
+            text: qsTr("Schovat označené")
         }
     }
 
@@ -54,18 +101,60 @@ Rectangle {
         id: imageDelegate
 
         Item {
+            id: imageDelegateRoot
+
             width: root.monsters ? 255 : 95
             height: root.monsters ? 255 : 95
 
-            Image {
-                width: parent.width - 5
-                height: parent.height - 5
-                anchors.centerIn: parent
+            Rectangle {
+                id: background
+                anchors.fill: parent
 
-                fillMode: Image.PreserveAspectFit
-                asynchronous: true
+                state: "NORMAL"
 
-                source: "file://" + path
+                states: [
+                    State {
+                        name: "NORMAL"
+                        PropertyChanges {
+                            target: background
+                            color: "transparent"
+                        }
+                    },
+                    State {
+                        name: "SELECTED"
+                        PropertyChanges {
+                            target: background
+                            color: "lightsteelblue"
+                        }
+                    }
+                ]
+
+                Image {
+                    width: parent.width - 5
+                    height: parent.height - 5
+                    anchors.centerIn: parent
+
+                    fillMode: Image.PreserveAspectFit
+                    asynchronous: true
+
+                    source: "file://" + path
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        console.log("clicked on " + path)
+
+                        if(background.state == "NORMAL")
+                        {
+                            console.log("select")
+                            background.state = "SELECTED"
+                        }
+                        else
+                            background.state = "NORMAL"
+                    }
+                }
             }
         }
     }
