@@ -3,24 +3,6 @@
 #include <QtDebug>
 #include <QFileInfo>
 
-/** Inner class to store information about Image **/
-struct ImageData {
-    QString path;
-    QString name;
-    bool isSelected;
-
-    ImageData(QString path, QString name, bool isSelected) :
-        path(path),
-        name(name),
-        isSelected(isSelected)
-    {
-    }
-
-    virtual ~ImageData()
-    {
-    }
-};
-
 /** Main Image model **/
 
 ImageModel::ImageModel() :
@@ -29,13 +11,10 @@ ImageModel::ImageModel() :
 
 }
 
-ImageModel::ImageModel(const QStringList &paths) :
-    QAbstractListModel()
+ImageModel::ImageModel(const QList<QSharedPointer<ImageData> > imageList) :
+    QAbstractListModel(),
+    m_imageList(imageList)
 {
-    Q_FOREACH(QString path, paths)
-    {
-        this->m_imageList.append(QSharedPointer<ImageData>(new ImageData(path, QFileInfo(path).fileName(), false)));
-    }
 }
 
 int ImageModel::rowCount(const QModelIndex &parent) const

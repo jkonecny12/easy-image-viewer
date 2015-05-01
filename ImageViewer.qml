@@ -125,7 +125,7 @@ Rectangle {
                 id: background
                 anchors.fill: parent
 
-                state: "NORMAL"
+                state: selected ? "SELECTED" : "NORMAL"
 
                 onStateChanged: {
                     if(state == "NORMAL")

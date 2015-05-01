@@ -6,19 +6,37 @@
 #include <QList>
 #include <QSharedPointer>
 
-struct ImageData;
+/** Data struct with information about Image **/
+struct ImageData {
+    QString path;
+    QString name;
+    bool isSelected;
+
+    ImageData(QString path, QString name, bool isSelected) :
+        path(path),
+        name(name),
+        isSelected(isSelected)
+    {
+    }
+
+    virtual ~ImageData()
+    {
+    }
+};
+
+/** Main ImageModel class **/
 class ImageModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
     enum ImageRoles {
-        ImageName = Qt::UserRole +1,
-        ImagePath,
-        ImageSelected
+        ImageName = Qt::UserRole +1, // name
+        ImagePath,                   // path
+        ImageSelected                // selected
     };
 
     explicit ImageModel();
-    explicit ImageModel(const QStringList &paths);
+    explicit ImageModel(const QList<QSharedPointer<ImageData> > imageList);
 
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
 
@@ -27,7 +45,7 @@ public:
     QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
 
 private:
-    QList<QSharedPointer<ImageData> > m_imageList;
+    const QList<QSharedPointer<ImageData> > m_imageList;
 };
 
 #endif // IMAGEMODEL_H

@@ -55,7 +55,15 @@ void FileLoader::loadImageList(QString path)
 
 ImageModel *FileLoader::imageModel() const
 {
-    return new ImageModel(this->m_itemsList);
+    QList<QSharedPointer<ImageData> > list;
+
+    Q_FOREACH(QString path, this->m_itemsList)
+    {
+        list.append(QSharedPointer<ImageData>(
+                        new ImageData(path, QFileInfo(path).fileName(), this->m_selectedItems.contains(path))));
+    }
+
+    return new ImageModel(list);
 }
 
 void FileLoader::selectImage(QString path)
