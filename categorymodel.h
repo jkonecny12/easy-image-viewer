@@ -10,8 +10,8 @@ class CategoryModel : public QAbstractListModel
     Q_OBJECT
 public:
     enum CategoryRoles {
-        CategoryPrefix = Qt::UserRole +1,
-        Name // will be used later
+        CategoryPrefix = Qt::UserRole +1, // categoryPrefix
+        Name // name -- will be used later
     };
 
     explicit CategoryModel(QObject *parent = 0);

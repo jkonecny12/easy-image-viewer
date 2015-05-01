@@ -37,7 +37,6 @@ void FileLoader::loadImageList(QString path)
     while(iter.hasNext())
     {
         iter.next();
-        qDebug() << "Loaded: " << iter.filePath();
         this->m_itemsList.append(iter.filePath());
         this->m_categories.insert(iter.fileName().left(3));
     }
@@ -51,6 +50,8 @@ CategoryModel *FileLoader::categoryModel() const
 {
     QStringList list = this->m_categories.toList();
     list.sort();
+
+    qDebug() << "category model count" << list.count();
 
     return new CategoryModel(list);
 }

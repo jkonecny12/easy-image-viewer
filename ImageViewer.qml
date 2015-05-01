@@ -14,11 +14,13 @@ Rectangle {
 
     ScrollView {
         anchors.fill: parent
-        ListView {
+        GridView {
             id: listView
             anchors.fill: parent
 
-            model: fileLoader.imageModel
+            cellWidth: 480
+
+            model: fileLoader.categoryModel
             delegate: categoryDelegate
         }
     }
@@ -31,28 +33,16 @@ Rectangle {
         id: categoryDelegate
 
         Item {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: 100
+            id: categoryRoot
+            height: 120
+            width: 500 // 5 items * 90 width + spaces
 
             ListView {
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.left: parent.left
-                width: 450 // maximum 5 items * 90 width
+                anchors.fill: parent
                 orientation: Qt.LeftToRight
 
                 delegate: imageDelegate
-            }
-
-            ListView {
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
-                width: 450 // maximum 5 items * 90 width
-                orientation: Qt.LeftToRight
-
-                delegate: imageDelegate
+                model: fileLoader.imageModel(categoryPrefix)
             }
         }
     }
