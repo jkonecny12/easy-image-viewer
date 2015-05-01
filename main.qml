@@ -8,7 +8,7 @@ import org.ps.EasyImage 1.0
 ApplicationWindow {
     id: root
     title: qsTr("Hello World")
-    width: 1060
+    width: 870
     height: 640
     visible: true
 

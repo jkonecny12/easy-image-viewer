@@ -11,6 +11,9 @@ Rectangle {
     property bool monsters: false
     property bool hide: true
 
+    property int itemSize: 85
+    property int monsterSize: 245
+
     state: "HIDE"
 
     onRootFolderChanged: {
@@ -47,8 +50,8 @@ Rectangle {
             id: listView
             anchors.fill: parent
 
-            cellWidth: monsters ? 255 : 95
-            cellHeight: monsters ? 255 : 95
+            cellWidth: root.monsters ? root.monsterSize : root.itemSize
+            cellHeight: cellWidth
 
             model: fileLoader.imageModel
             delegate: imageDelegate
@@ -115,8 +118,8 @@ Rectangle {
         Item {
             id: imageDelegateRoot
 
-            width: root.monsters ? 255 : 95
-            height: root.monsters ? 255 : 95
+            width: root.monsters ? root.monsterSize : root.itemSize
+            height: width
 
             Rectangle {
                 id: background
