@@ -48,6 +48,8 @@ void FileLoader::loadImageList(QString path)
 
     this->m_itemsList.sort();
 
+    qDebug() << "Load items" << this->m_itemsList.count();
+
     emit this->categoryModelChanged();
 }
 
@@ -86,18 +88,12 @@ void FileLoader::unselectImage(QString path)
 
 /** SLOTS **/
 
-bool FileLoader::hide() const
+void FileLoader::hideItems(bool hide)
 {
-    return this->m_hide;
-}
+    this->m_hide = hide;
 
-void FileLoader::setHide(bool hide)
-{
-    if(this->m_hide != hide)
+    if(this->m_hide)
     {
-        qDebug() << "change hide";
-        this->m_hide = hide;
-        emit this->hideChanged();
         this->loadImageList(this->m_lastPath);
     }
 }

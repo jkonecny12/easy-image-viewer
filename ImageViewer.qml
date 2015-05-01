@@ -24,22 +24,14 @@ Rectangle {
                 target: root
                 hide: true
             }
-            PropertyChanges {
-                target: fileLoader
-                hide: true
-            }
-        },
+       },
         State {
             name: "SHOW"
             PropertyChanges {
                 target: root
                 hide: false
             }
-            PropertyChanges {
-                target: fileLoader
-                hide: false
-            }
-        }
+       }
     ]
 
     ScrollView {
@@ -89,6 +81,7 @@ Rectangle {
 
             onClicked: {
                 root.state = "SHOW"
+                fileLoader.hideItems(false)
             }
         }
 
@@ -107,6 +100,7 @@ Rectangle {
 
             onClicked: {
                 root.state = "HIDE"
+                fileLoader.hideItems(true)
             }
         }
     }

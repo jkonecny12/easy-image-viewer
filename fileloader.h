@@ -13,7 +13,6 @@ class FileLoader : public QObject
     Q_OBJECT
 
     Q_PROPERTY(CategoryModel* categoryModel READ categoryModel NOTIFY categoryModelChanged)
-    Q_PROPERTY(bool hide READ hide WRITE setHide NOTIFY hideChanged)
 public:
     explicit FileLoader(QObject *parent = 0);
     ~FileLoader();
@@ -26,14 +25,11 @@ public:
     Q_INVOKABLE void selectImage(QString path);
     Q_INVOKABLE void unselectImage(QString path);
 
-    bool hide() const;
-    void setHide(bool hide);
-
 signals:
     void categoryModelChanged();
-    void hideChanged();
 
 public slots:
+    void hideItems(bool hide);
 
 private:
     QStringList m_itemsList;
