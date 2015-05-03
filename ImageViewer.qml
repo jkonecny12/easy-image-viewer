@@ -41,7 +41,7 @@ Rectangle {
         anchors
         {
             top: parent.top
-            bottom: buttons.top
+            bottom: controlStripe.top
             left: parent.left
             right: parent.right
         }
@@ -58,8 +58,8 @@ Rectangle {
         }
     }
 
-    Rectangle {
-        id: buttons
+    BottomControlStripe {
+        id: controlStripe
 
         anchors
         {
@@ -70,41 +70,15 @@ Rectangle {
 
         height: 30
 
-        Button {
-            id: showButton
-            anchors
-            {
-                right: parent.right
-                top: parent.top
-                bottom: parent.bottom
-            }
-
-            width: 150
-            text: qsTr("Zobrazit vše")
-
-            onClicked: {
-                root.state = "SHOW"
-                fileLoader.hideItems(false)
-            }
+        onSetShow: {
+            root.state = "SHOW"
+            fileLoader.hideItems(false)
         }
 
-        Button {
-            id: hideButton
 
-            anchors
-            {
-                right: showButton.left
-                top: parent.top
-                bottom: parent.bottom
-            }
-
-            width: 150
-            text: qsTr("Schovat označené")
-
-            onClicked: {
-                root.state = "HIDE"
-                fileLoader.hideItems(true)
-            }
+        onSetHide: {
+            root.state = "HIDE"
+            fileLoader.hideItems(true)
         }
     }
 

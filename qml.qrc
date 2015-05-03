@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>MainForm.qml</file>
         <file>ImageViewer.qml</file>
+        <file>BottomControlStripe.qml</file>
     </qresource>
 </RCC>
