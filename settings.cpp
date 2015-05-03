@@ -1,5 +1,7 @@
 #include "settings.h"
 
+#include <QtDebug>
+
 Settings::Settings(QObject *parent) :
     QSettings(QSettings::Scope::UserScope,
               QStringLiteral("PacketSeekers"),
@@ -36,7 +38,9 @@ QStringList Settings::users() const
 
 void Settings::addUser(QString user)
 {
+    qDebug() << "add user:" << user;
     QStringList list = this->users();
+
     if(!list.contains(user))
     {
         setValue(this->c_USERS, QVariant(user));

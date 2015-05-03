@@ -7,7 +7,6 @@ Rectangle {
     signal setShow
     signal setHide
 
-
     Button {
         id: showButton
         anchors
