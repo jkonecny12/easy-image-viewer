@@ -1,11 +1,19 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 
+import org.ps.EasyImage 1.0
+
 Rectangle {
     id: root
 
     signal setShow
     signal setHide
+
+    ComboBox {
+        id: usersCombobox
+
+        model: Settings.users
+    }
 
     Button {
         id: showButton

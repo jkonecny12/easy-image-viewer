@@ -101,7 +101,7 @@ ApplicationWindow {
 
                     onClicked: {
                         if(userName.text != "") {
-                            settings.addUser(userName.text)
+                            Settings.addUser(userName.text)
                         }
 
                         addUserDialog.visible = false
@@ -126,13 +126,9 @@ ApplicationWindow {
         anchors.fill: parent
     }
 
-    Settings {
-        id: settings
-
-        Component.onCompleted: {
-            var path = settings.rootLocation
-            if(path !== "")
-                mainForm.rootFolder = path
-        }
+    Component.onCompleted: {
+        var path = Settings.rootLocation
+        if(path !== "")
+            mainForm.rootFolder = path
     }
 }

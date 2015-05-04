@@ -2,6 +2,8 @@
 
 #include <QtDebug>
 
+Settings *Settings::m_instance = new Settings();
+
 Settings::Settings(QObject *parent) :
     QSettings(QSettings::Scope::UserScope,
               QStringLiteral("PacketSeekers"),
@@ -12,6 +14,11 @@ Settings::Settings(QObject *parent) :
 
 Settings::~Settings()
 {
+}
+
+Settings *Settings::instance()
+{
+    return Settings::m_instance;
 }
 
 QString Settings::rootLocation() const

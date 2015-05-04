@@ -6,12 +6,21 @@
 #include "imagemodel.h"
 #include "settings.h"
 
+static QObject *sigletonProvider(QQmlEngine *engine, QJSEngine *jsEngine)
+{
+    Q_UNUSED(engine)
+    Q_UNUSED(jsEngine)
+
+    return Settings::instance();
+}
+
 void registerQmlTypes()
 {
     qmlRegisterType<FileLoader>("org.ps.EasyImage", 1, 0, "FileLoader");
     qmlRegisterUncreatableType<ImageModel>("org.ps.EasyImage", 1, 0, "ImageModel",
                                            "Will be created by FileLoader");
-    qmlRegisterType<Settings>("org.ps.EasyImage", 1, 0, "Settings");
+    qmlRegisterSingletonType<Settings>("org.ps.EasyImage", 1, 0, "Settings",
+                                       sigletonProvider);
 }
 
 int main(int argc, char *argv[])
