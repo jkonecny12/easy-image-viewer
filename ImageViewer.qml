@@ -75,10 +75,14 @@ Rectangle {
             fileLoader.hideItems(false)
         }
 
-
         onSetHide: {
             root.state = "HIDE"
             fileLoader.hideItems(true)
+            fileLoader.saveSelectedItems(controlStripe.activeUser)
+        }
+
+        onActiveUserChanged: {
+            fileLoader.loadSelectedItems(activeUser)
         }
     }
 

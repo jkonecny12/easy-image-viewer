@@ -29,6 +29,13 @@ signals:
 public slots:
     void hideItems(bool hide);
 
+    void saveSelectedItems(QString user);
+    void loadSelectedItems(QString user);
+
+private:
+    QString reducePath(QString &path);
+    QString expandPath(QString &path);
+
 private:
     QStringList m_itemsList;
     QSet<QString> m_selectedItems;

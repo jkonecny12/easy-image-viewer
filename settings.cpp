@@ -60,12 +60,13 @@ QStringList Settings::userSelectedList(QString user)
     QStringList groups = childGroups();
     QStringList ret;
 
-    if(!groups.contains(user))
+    if(groups.contains(user))
     {
         beginGroup(user);
         ret = value(this->c_SELECTED_ITEMS).toStringList();
         endGroup();
     }
+
     return ret;
 }
 

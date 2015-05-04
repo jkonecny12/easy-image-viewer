@@ -9,6 +9,8 @@ Rectangle {
     signal setShow
     signal setHide
 
+    property alias activeUser: usersCombobox.currentText
+
     ComboBox {
         id: usersCombobox
 
