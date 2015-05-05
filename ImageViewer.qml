@@ -6,7 +6,8 @@ import org.ps.EasyImage 1.0
 Rectangle {
     id: root
 
-    property url rootFolder: ""
+    property alias rootFolder: fileLoader.rootPath
+    property alias folderName: fileLoader.folderName
 
     property bool monsters: false
     property bool hide: true
@@ -88,6 +89,10 @@ Rectangle {
 
     FileLoader {
         id: fileLoader
+
+        onRootPathChanged: {
+            fileLoader.loadSelectedItems(controlStripe.activeUser)
+        }
     }
 
     Component {

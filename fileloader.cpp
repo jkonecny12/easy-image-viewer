@@ -16,13 +16,9 @@ FileLoader::~FileLoader()
 {
 }
 
-void FileLoader::loadImageList(QString path)
+void FileLoader::loadImageList()
 {
-    path.remove(QStringLiteral("file://"));
-    path.remove(QStringLiteral("qrc:"));
-
-    this->m_lastPath = path;
-
+    QString path = this->m_rootPath + QDir::separator() + this->m_folderName;
     qDebug() << "Load folder: " + path;
 
     QDir dir = QDir(path);
@@ -84,7 +80,7 @@ void FileLoader::unselectImage(QString path)
 void FileLoader::hideItems(bool hide)
 {
     this->m_hide = hide;
-    this->loadImageList(this->m_lastPath);
+    this->loadImageList();
 }
 
 void FileLoader::saveSelectedItems(QString user)
@@ -102,6 +98,12 @@ void FileLoader::saveSelectedItems(QString user)
 
 void FileLoader::loadSelectedItems(QString user)
 {
+    if(user.isEmpty() || this->m_rootPath.isEmpty())
+    {
+        qDebug() << "skipping load selected items";
+        return;
+    }
+
     QStringList list;
 
     qDebug() << "Loading selected items for user" << user;
@@ -117,18 +119,55 @@ void FileLoader::loadSelectedItems(QString user)
     qDebug() << "loaded select items:" << this->m_selectedItems;
 }
 
-/** Private methods **/
-QString FileLoader::reducePath(QString &path)
+QString FileLoader::rootPath() const
 {
-    qDebug() << this->m_lastPath;
-    path.remove(this->m_lastPath);
-
-    return path;
+    return this->m_rootPath;
 }
 
-QString FileLoader::expandPath(QString &path)
+void FileLoader::setRootPath(QString path)
 {
-    path += this->m_lastPath + path;
+    path.remove(QStringLiteral("file://"));
+    path.remove(QStringLiteral("qrc:"));
 
-    return path;
+    if(this->m_rootPath != path)
+    {
+        this->m_rootPath = path;
+        emit this->rootPathChanged();
+    }
+}
+
+QString FileLoader::folderName() const
+{
+    return this->m_folderName;
+}
+
+void FileLoader::setFolderName(QString name)
+{
+    name.remove(QStringLiteral("file://"));
+    name.remove(QStringLiteral("qrc:"));
+
+    if(this->m_folderName != name)
+    {
+        this->m_folderName = name;
+        emit this->folderNameChanged();
+    }
+}
+
+/** Private methods **/
+QString FileLoader::reducePath(const QString path)
+{
+    QString out = path;
+    out.remove(this->m_rootPath);
+
+    return out;
+}
+
+QString FileLoader::expandPath(const QString path)
+{
+    QString out;
+    out += this->m_rootPath + path;
+
+    qDebug() << "expand:" << path << "by:" << this->m_rootPath;
+
+    return out;
 }

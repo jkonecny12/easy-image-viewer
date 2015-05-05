@@ -15,7 +15,8 @@ Rectangle {
             title: qsTr("Valečník")
 
             ImageViewer {
-                rootFolder: root.rootFolder + "/3\ Valecnici"
+                rootFolder: root.rootFolder
+                folderName: "3\ Valecnici"
             }
         }
 
@@ -23,7 +24,8 @@ Rectangle {
             title: qsTr("Kouzelník")
 
             ImageViewer {
-                rootFolder: root.rootFolder + "/4\ Kouzelnici"
+                rootFolder: root.rootFolder
+                folderName: "4\ Kouzelnici"
             }
         }
 
@@ -31,7 +33,8 @@ Rectangle {
             title: qsTr("Průzkumník")
 
             ImageViewer {
-                rootFolder: root.rootFolder + "/5\ Pruzkumnici"
+                rootFolder: root.rootFolder
+                folderName: "5\ Pruzkumnici"
             }
         }
 
@@ -39,7 +42,8 @@ Rectangle {
             title: qsTr("Cennosti")
 
             ImageViewer {
-                rootFolder: root.rootFolder + "/2\ Cennosti"
+                rootFolder: root.rootFolder
+                folderName: "2\ Cennosti"
             }
         }
 
@@ -47,7 +51,8 @@ Rectangle {
             title: qsTr("Monstra")
 
             ImageViewer {
-                rootFolder: root.rootFolder + "/1\ Monstra"
+                rootFolder: root.rootFolder
+                folderName: "1\ Monstra"
                 monsters: true
             }
         }
