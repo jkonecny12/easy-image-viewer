@@ -83,7 +83,8 @@ Rectangle {
         }
 
         onActiveUserChanged: {
-            fileLoader.loadSelectedItems(activeUser)
+            if(fileLoader.loadSelectedItems(activeUser))
+                fileLoader.loadImageList()
         }
     }
 
@@ -91,7 +92,8 @@ Rectangle {
         id: fileLoader
 
         onRootPathChanged: {
-            fileLoader.loadSelectedItems(controlStripe.activeUser)
+            if(fileLoader.loadSelectedItems(controlStripe.activeUser))
+                fileLoader.loadImageList()
         }
     }
 

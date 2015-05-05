@@ -40,7 +40,7 @@ public slots:
     void hideItems(bool hide);
 
     void saveSelectedItems(QString user);
-    void loadSelectedItems(QString user);
+    bool loadSelectedItems(QString user);
 
 private:
     QString reducePath(const QString path);

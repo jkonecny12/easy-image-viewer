@@ -95,12 +95,12 @@ void FileLoader::saveSelectedItems(QString user)
     Settings::instance()->setUserSelectedList(user, out);
 }
 
-void FileLoader::loadSelectedItems(QString user)
+bool FileLoader::loadSelectedItems(QString user)
 {
     if(user.isEmpty() || this->m_rootPath.isEmpty())
     {
         qDebug() << "skipping load selected items";
-        return;
+        return false;
     }
 
     QStringList list;
@@ -116,6 +116,8 @@ void FileLoader::loadSelectedItems(QString user)
     }
 
     qDebug() << "loaded select items:" << this->m_selectedItems;
+
+    return true;
 }
 
 QString FileLoader::rootPath() const
