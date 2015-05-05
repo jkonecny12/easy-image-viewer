@@ -46,7 +46,6 @@ void FileLoader::loadImageList()
     this->m_itemsList.sort();
 
     qDebug() << "Skiped items" << this->m_selectedItems.count();
-    qDebug() << this->m_selectedItems;
     qDebug() << "Load items" << this->m_itemsList.count();
 
     emit this->imageModelChanged();
@@ -166,8 +165,6 @@ QString FileLoader::expandPath(const QString path)
 {
     QString out;
     out += this->m_rootPath + path;
-
-    qDebug() << "expand:" << path << "by:" << this->m_rootPath;
 
     return out;
 }
