@@ -50,7 +50,8 @@ void Settings::addUser(QString user)
 
     if(!list.contains(user))
     {
-        setValue(this->c_USERS, QVariant(user));
+        list << user;
+        setValue(this->c_USERS, QVariant(list));
         emit this->usersChanged();
     }
 }
