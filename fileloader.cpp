@@ -114,7 +114,6 @@ bool FileLoader::loadSelectedItems(QString user)
 {
     if(user.isEmpty() || this->m_rootPath.isEmpty())
     {
-        qDebug() << "skipping load selected items";
         return false;
     }
 
@@ -129,8 +128,6 @@ bool FileLoader::loadSelectedItems(QString user)
     {
         this->m_selectedItems.insert(this->expandPath(item));
     }
-
-    qDebug() << "loaded select items:" << this->m_selectedItems;
 
     return true;
 }

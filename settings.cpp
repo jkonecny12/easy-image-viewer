@@ -2,7 +2,7 @@
 
 #include <QtDebug>
 
-Settings *Settings::m_instance = new Settings();
+Settings *Settings::s_instance = new Settings();
 
 Settings::Settings(QObject *parent) :
     QSettings(QSettings::Scope::UserScope,
@@ -10,6 +10,12 @@ Settings::Settings(QObject *parent) :
               QStringLiteral("easy-image-viewer"),
               parent)
 {
+    QStringList usersList = this->users();
+
+    if(usersList.isEmpty())
+        this->m_activeUser.clear();
+
+    this->m_activeUser = usersList[0];
 }
 
 Settings::~Settings()
@@ -18,7 +24,7 @@ Settings::~Settings()
 
 Settings *Settings::instance()
 {
-    return Settings::m_instance;
+    return Settings::s_instance;
 }
 
 QString Settings::rootLocation() const
@@ -76,4 +82,18 @@ void Settings::setUserSelectedList(QString user, QStringList userList)
     beginGroup(user);
     setValue(this->c_SELECTED_ITEMS, QVariant(userList));
     endGroup();
+}
+
+QString Settings::activeUser() const
+{
+    return this->m_activeUser;
+}
+
+void Settings::setActiveUser(QString user)
+{
+    if(user != this->m_activeUser)
+    {
+        this->m_activeUser = user;
+        emit this->activeUserChanged();
+    }
 }

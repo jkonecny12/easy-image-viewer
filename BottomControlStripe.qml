@@ -15,6 +15,31 @@ Rectangle {
         id: usersCombobox
 
         model: Settings.users
+
+        Component.onCompleted: {
+            Settings.activeUserChanged.connect(setActiveUser)
+
+            setActiveUser()
+
+            currentTextChanged.connect(setSettingsUser)
+        }
+
+        function setActiveUser()
+        {
+            var activeUser = Settings.activeUser
+
+            if(activeUser !== usersCombobox.currentText)
+            {
+                var index = usersCombobox.find(activeUser)
+                usersCombobox.currentIndex = index
+            }
+        }
+
+        function setSettingsUser()
+        {
+            Settings.activeUser = currentText
+        }
+
     }
 
     Button {
