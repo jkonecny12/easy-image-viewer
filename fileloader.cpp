@@ -45,6 +45,11 @@ void FileLoader::loadImageList()
 
     this->m_itemsList.sort();
 
+    if(this->m_hide)
+        this->m_visibleSelectedItems.clear();
+    else
+        this->m_visibleSelectedItems.unite(this->m_selectedItems);
+
     qDebug() << "Skiped items" << this->m_selectedItems.count();
     qDebug() << "Load items" << this->m_itemsList.count();
 
@@ -67,11 +72,21 @@ ImageModel *FileLoader::imageModel() const
 void FileLoader::selectImage(QString path)
 {
     this->m_selectedItems.insert(path);
+    this->m_visibleSelectedItems.insert(path);
 }
 
 void FileLoader::unselectImage(QString path)
 {
     this->m_selectedItems.remove(path);
+    this->m_visibleSelectedItems.remove(path);
+}
+
+QStringList FileLoader::selectedItems() const
+{
+    QStringList list = this->m_visibleSelectedItems.toList();
+    list.sort();
+
+    return list;
 }
 
 /** SLOTS **/
@@ -120,6 +135,8 @@ bool FileLoader::loadSelectedItems(QString user)
     return true;
 }
 
+/** Properties **/
+
 QString FileLoader::rootPath() const
 {
     return this->m_rootPath;
@@ -155,7 +172,8 @@ void FileLoader::setFolderName(QString name)
 }
 
 /** Private methods **/
-QString FileLoader::reducePath(const QString path)
+
+QString FileLoader::reducePath(const QString path) const
 {
     QString out = path;
     out.remove(this->m_rootPath);
@@ -163,7 +181,7 @@ QString FileLoader::reducePath(const QString path)
     return out;
 }
 
-QString FileLoader::expandPath(const QString path)
+QString FileLoader::expandPath(const QString path) const
 {
     QString out;
     out += this->m_rootPath + path;

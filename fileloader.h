@@ -25,6 +25,8 @@ public:
     Q_INVOKABLE void selectImage(QString path);
     Q_INVOKABLE void unselectImage(QString path);
 
+    Q_INVOKABLE QStringList selectedItems() const;
+
     QString rootPath() const;
     void setRootPath(QString path);
 
@@ -43,12 +45,13 @@ public slots:
     bool loadSelectedItems(QString user);
 
 private:
-    QString reducePath(const QString path);
-    QString expandPath(const QString path);
+    QString reducePath(const QString path) const;
+    QString expandPath(const QString path) const;
 
 private:
     QStringList m_itemsList;
     QSet<QString> m_selectedItems;
+    QSet<QString> m_visibleSelectedItems;
     bool m_hide;
     QString m_rootPath;
     QString m_folderName;

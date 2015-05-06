@@ -15,11 +15,9 @@ Rectangle {
     property int itemSize: 85
     property int monsterSize: 245
 
-    state: "HIDE"
+    signal shiftClicked(string item)
 
-    onRootFolderChanged: {
-        fileLoader.loadImageList(rootFolder)
-    }
+    state: "HIDE"
 
     states: [
         State {
@@ -56,6 +54,12 @@ Rectangle {
 
             model: fileLoader.imageModel
             delegate: imageDelegate
+
+            focus: true
+
+            Keys.onPressed: {
+                console.log("test")
+            }
         }
     }
 
@@ -92,8 +96,8 @@ Rectangle {
         id: fileLoader
 
         onRootPathChanged: {
-            if(fileLoader.loadSelectedItems(controlStripe.activeUser))
-                fileLoader.loadImageList()
+            fileLoader.loadSelectedItems(controlStripe.activeUser)
+            fileLoader.loadImageList()
         }
     }
 
@@ -118,6 +122,24 @@ Rectangle {
                     else
                         fileLoader.selectImage(path)
                 }
+
+                Component.onCompleted: {
+                    root.shiftClicked.connect(testForSelection)
+                }
+
+                function testForSelection(item)
+                {
+                    if(fileLoader == undefined)
+                        return
+
+                    var selectedItems = fileLoader.selectedItems()
+                    var lastSelected = selectedItems[selectedItems.length - 2]
+
+                    if(path > lastSelected && path < item)
+                    {
+                        background.state = "SELECTED"
+                    }
+               }
 
                 states: [
                     State {
@@ -153,6 +175,8 @@ Rectangle {
                     onClicked: {
                         console.log("clicked on " + path)
 
+                        console.log("modifier: " + (mouse.modifiers & Qt.ShiftModifier))
+
                         if(background.state == "NORMAL")
                         {
                             console.log("select")
@@ -160,6 +184,11 @@ Rectangle {
                         }
                         else
                             background.state = "NORMAL"
+
+                        if(mouse.modifiers & Qt.ShiftModifier)
+                        {
+                           root.shiftClicked(path)
+                        }
                     }
                 }
             }
