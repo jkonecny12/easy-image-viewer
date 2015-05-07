@@ -44,6 +44,8 @@ public:
 
     QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
 
+    void setSelected(QString path, bool selected);
+
 private:
     const QList<QSharedPointer<ImageData> > m_imageList;
 };

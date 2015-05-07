@@ -52,3 +52,15 @@ QHash<int, QByteArray> ImageModel::roleNames() const
 
     return roles;
 }
+
+void ImageModel::setSelected(QString path, bool selected)
+{
+    Q_FOREACH(auto image, this->m_imageList)
+    {
+        if(image->path == path)
+        {
+            image->isSelected = selected;
+            break;
+        }
+    }
+}

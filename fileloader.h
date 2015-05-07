@@ -20,7 +20,7 @@ public:
 
     Q_INVOKABLE void loadImageList();
 
-    ImageModel *imageModel() const;
+    ImageModel *imageModel();
 
     Q_INVOKABLE void selectImage(QString path);
     Q_INVOKABLE void unselectImage(QString path);
@@ -55,6 +55,7 @@ private:
     bool m_hide;
     QString m_rootPath;
     QString m_folderName;
+    ImageModel *m_activeModel;
 };
 
 #endif // FILELOADER_H

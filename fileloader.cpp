@@ -56,7 +56,7 @@ void FileLoader::loadImageList()
     emit this->imageModelChanged();
 }
 
-ImageModel *FileLoader::imageModel() const
+ImageModel *FileLoader::imageModel()
 {
     QList<QSharedPointer<ImageData> > list;
 
@@ -66,19 +66,22 @@ ImageModel *FileLoader::imageModel() const
                         new ImageData(path, QFileInfo(path).fileName(), this->m_selectedItems.contains(path))));
     }
 
-    return new ImageModel(list);
+    this->m_activeModel = new ImageModel(list);
+    return this->m_activeModel;
 }
 
 void FileLoader::selectImage(QString path)
 {
     this->m_selectedItems.insert(path);
     this->m_visibleSelectedItems.insert(path);
+    this->m_activeModel->setSelected(path, true);
 }
 
 void FileLoader::unselectImage(QString path)
 {
     this->m_selectedItems.remove(path);
     this->m_visibleSelectedItems.remove(path);
+    this->m_activeModel->setSelected(path, false);
 }
 
 QStringList FileLoader::selectedItems() const
