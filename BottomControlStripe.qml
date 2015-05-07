@@ -51,7 +51,7 @@ Rectangle {
             bottom: parent.bottom
         }
 
-        width: 150
+        width: 125
         text: qsTr("Zobrazit vše")
 
         onClicked: root.setShow()
@@ -67,7 +67,7 @@ Rectangle {
             bottom: parent.bottom
         }
 
-        width: 150
+        width: 125
         text: qsTr("Schovat označené")
 
         onClicked: root.setHide()
