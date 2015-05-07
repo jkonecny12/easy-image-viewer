@@ -8,21 +8,21 @@ import org.ps.EasyImage 1.0
 
 ApplicationWindow {
     id: root
-    title: qsTr("Hello World")
+    title: qsTr("Easy Image")
     width: 870
     height: 640
     visible: true
 
     menuBar: MenuBar {
         Menu {
-            title: qsTr("&File")
+            title: qsTr("&Soubor")
 
             MenuItem {
-                text: qsTr("&Open")
+                text: qsTr("&Otevřít")
                 onTriggered: fileDialog.visible = true
             }
             MenuItem {
-                text: qsTr("Add &User")
+                text: qsTr("&Přidat uživatele")
                 onTriggered: addUserDialog.visible = true
             }
 
@@ -35,7 +35,7 @@ ApplicationWindow {
 
     FileDialog {
         id: fileDialog
-        title: qsTr("Please choose root folder with images")
+        title: qsTr("Prosím vyber hlavní složku pro načítání obrázků")
         selectFolder: true
         selectMultiple: false
 
@@ -47,7 +47,7 @@ ApplicationWindow {
 
     Dialog {
         id: addUserDialog
-        title: qsTr("Add user")
+        title: qsTr("Přidat uživatele")
         standardButtons: StandardButton.save | StandardButton.Cancel
 
 
